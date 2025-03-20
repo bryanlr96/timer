@@ -12,17 +12,19 @@ export default function Timer({ labelSesion, labelBreak, sessionTime, breakTime 
     const [timeLeft, setTimeLeft] = useState(sessionTime * 60); //el timepo lo queremos siempre en segundos
     const [label, setLabel] = useState(labelSesion)
 
+    useEffect(() => { //si modificamos el tiempo breakTime
+        setTimeLeft(breakTime * 60);
+        setLabel(labelBreak);
+        setIsPaused(true);
+    }, [breakTime]);
+
     useEffect(() => { //si modificamos el tiempo sesionTime
         setTimeLeft(sessionTime * 60);
         setLabel(labelSesion);
         setIsPaused(true);
     }, [sessionTime]);
 
-    useEffect(() => { //si modificamos el tiempo breakTime
-        setTimeLeft(breakTime * 60);
-        setLabel(labelBreak);
-        setIsPaused(true);
-    }, [breakTime]);
+    
 
     useEffect(() => { //funcionalidad del timer
         if (timeLeft <= 0 || isPaused) return;
